@@ -46,7 +46,7 @@ modules:
         electron-builder --config ./electron-builder.config.cjs --linux --dir $ELECTRON_BUILDER_ARCH_ARGS
       - mv dist-electron/linux*-unpacked $FLATPAK_DEST/fluxer
       # Inject the correct Flatpak App ID directly into the Electron archive:
-      - patch-desktop-filename ${FLATPAK_DEST}/fluxer/resources/app.asar
+      - patch-electron-desktop-filename ${FLATPAK_DEST}/fluxer/resources/app.asar
       - install -Dm755 ${FLATPAK_ID}.sh ${FLATPAK_DEST}/bin/${FLATPAK_ID}
       - install -Dm644 packaging/linux/${FLATPAK_ID}.desktop ${FLATPAK_DEST}/share/applications/${FLATPAK_ID}.desktop
       - install -Dm644 packaging/linux/${FLATPAK_ID}.metainfo.xml ${FLATPAK_DEST}/share/metainfo/${FLATPAK_ID}.metainfo.xml
