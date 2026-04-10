@@ -54,7 +54,7 @@ modules:
     sources:
       - type: git
         url: https://github.com/fluxerapp/fluxer.git
-        commit: 03813bbe17db008452f0f1be3090a7d2970a5447
+        commit: ee1f27fe1a372b5291aead8042944afd706bf5db
         disable-submodules: true
       - type: patch
         path: fix.patch
