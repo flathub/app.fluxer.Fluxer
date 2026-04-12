@@ -6,4 +6,8 @@ if [ -f "${FLAGS_PATH}" ]; then
     mapfile -t FLAGS <<< "$(grep -Ev '^\s*$|^#' "${FLAGS_PATH}")"
 fi
 
-exec zypak-wrapper /app/fluxer/fluxer_desktop "${FLAGS[@]}" "$@"
+if [ -n "$WAYLAND_DISPLAY" ]; then
+    exec zypak-wrapper /app/fluxer/fluxer_desktop "${FLAGS[@]}" "$@"
+else
+    exec /app/fluxer/fluxer_desktop --no-sandbox "${FLAGS[@]}" "$@"
+fi
