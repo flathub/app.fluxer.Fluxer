@@ -7,7 +7,7 @@ if [ -f "${FLAGS_PATH}" ]; then
 fi
 
 if [ -n "$WAYLAND_DISPLAY" ]; then
-    exec zypak-wrapper /app/fluxer/fluxer_desktop "${FLAGS[@]}" "$@"
+    exec zypak-wrapper /app/fluxer/fluxer_desktop --disable-features=WaylandWpColorManagerV1 "${FLAGS[@]}" "$@"
 else
     exec /app/fluxer/fluxer_desktop --no-sandbox "${FLAGS[@]}" "$@"
 fi
