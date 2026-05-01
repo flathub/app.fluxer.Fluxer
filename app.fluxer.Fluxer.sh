@@ -6,8 +6,9 @@ if [ -f "${FLAGS_PATH}" ]; then
     mapfile -t FLAGS <<< "$(grep -Ev '^\s*$|^#' "${FLAGS_PATH}")"
 fi
 
-if [ -n "$WAYLAND_DISPLAY" ]; then
-    exec zypak-wrapper /app/fluxer/fluxer_desktop --disable-features=WaylandWpColorManagerV1 "${FLAGS[@]}" "$@"
-else
-    exec /app/fluxer/fluxer_desktop --no-sandbox "${FLAGS[@]}" "$@"
-fi
+ARCH="$([[ "$(uname -m)" =~ ^(aarch64|arm64)$ ]] && echo "arm64" || echo "x64")"
+UIOHOOK_NAPI="$(ls "/app/fluxer/resources/app.asar.unpacked/node_modules/uiohook-napi/prebuilds/linux-$ARCH/"*.node)"
+
+export ZYPAK_LD_PRELOAD="$ZYPAK_LD_PRELOAD:$UIOHOOK_NAPI"
+
+exec zypak-wrapper /app/fluxer/fluxer_desktop --disable-features=WaylandWpColorManagerV1 "${FLAGS[@]}" "$@"
