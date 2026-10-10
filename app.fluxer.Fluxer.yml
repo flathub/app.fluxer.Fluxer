@@ -15,6 +15,7 @@ finish-args:
   - --socket=wayland
   - --socket=fallback-x11
   - --socket=pulseaudio
+  - --socket=pcsc
   - --share=network
   - --device=all
   - --filesystem=xdg-run/pipewire-0:ro
@@ -25,6 +26,7 @@ finish-args:
   - --talk-name=com.canonical.indicator.application
   - --talk-name=org.kde.StatusNotifierWatcher
   - --talk-name=org.freedesktop.Notifications
+  - --talk-name=org.freedesktop.secrets
 build-options:
   strip: true
   append-path: /usr/lib/sdk/node24/bin:/usr/lib/sdk/rust-stable/bin:/usr/lib/sdk/llvm22/bin
@@ -79,8 +81,8 @@ modules:
       - type: git
         url: https://github.com/fluxerapp/fluxer.git
         disable-submodules: true
-        tag: fluxer-desktop-stable@2026.1004.13532
-        commit: f3c777b2446961352b7153a19e347c26ec74ba8e
+        tag: fluxer-desktop-stable@2026.1006.171735
+        commit: 8b6910d5059e07459e4a8e0c0cd63b46d09d2a3d
         x-checker-data:
           type: git
           is-main-source: true
