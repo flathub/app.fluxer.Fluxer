@@ -1,0 +1,34 @@
+name: membarrier-shim
+buildsystem: simple
+only-arches:
+  - aarch64
+cleanup:
+  - '*'
+build-commands:
+  - cc -shared -fPIC -O2 -o membarrier-shim.so membarrier-shim.c -ldl
+  - install -Dm755 membarrier-shim.so ${FLATPAK_DEST}/lib/membarrier-shim.so
+sources:
+  - type: inline
+    dest-filename: membarrier-shim.c
+    contents: |
+      #define _GNU_SOURCE
+      #include <dlfcn.h>
+      #include <stdarg.h>
+      #include <sys/syscall.h>
+
+      long syscall(long number, ...)
+      {
+          static long (*real_syscall)(long, ...);
+          va_list ap;
+          long a[6];
+
+          if (number == SYS_membarrier)
+              return 0;
+          if (!real_syscall)
+              real_syscall = (long (*)(long, ...))dlsym(RTLD_NEXT, "syscall");
+          va_start(ap, number);
+          for (int i = 0; i < 6; i++)
+              a[i] = va_arg(ap, long);
+          va_end(ap);
+          return real_syscall(number, a[0], a[1], a[2], a[3], a[4], a[5]);
+      }

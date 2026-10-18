@@ -1,0 +1,27 @@
+[
+  {
+    "type": "archive",
+    "url": "https://github.com/wasm-bindgen/wasm-bindgen/releases/download/0.2.128/wasm-bindgen-0.2.128-aarch64-unknown-linux-musl.tar.gz",
+    "sha256": "079731dd1bc7798c1efa4f08fcc45130827cbcc9ff60a0b4c6047d64fc6fd25c",
+    "dest": "wasm-bindgen",
+    "only-arches": [
+      "aarch64"
+    ]
+  },
+  {
+    "type": "archive",
+    "url": "https://github.com/wasm-bindgen/wasm-bindgen/releases/download/0.2.128/wasm-bindgen-0.2.128-x86_64-unknown-linux-musl.tar.gz",
+    "sha256": "b51f0208fdff83515a787bd8ab9ac5865ed84dabb66d0c709957bb59793c645f",
+    "dest": "wasm-bindgen",
+    "only-arches": [
+      "x86_64"
+    ]
+  },
+  {
+    "type": "shell",
+    "commands": [
+      "mv ./wasm* /app/lib/sdk/rust/bin/"
+    ],
+    "dest": "wasm-bindgen"
+  }
+]

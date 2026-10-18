@@ -1,0 +1,132 @@
+[
+    {
+        "type": "archive",
+        "url": "https://static.rust-lang.org/dist/2026-09-03/rustc-1.98.1-aarch64-unknown-linux-gnu.tar.xz",
+        "sha256": "89fb83041993b48816514815606f53a5264729b8b449671a6b291e6f0ae74f40",
+        "dest": "rustc",
+        "only-arches": [
+            "aarch64"
+        ],
+        "x-checker-data": {
+            "type": "rust",
+            "package": "rustc",
+            "channel": "stable",
+            "target": "aarch64-unknown-linux-gnu"
+        }
+    },
+    {
+        "type": "archive",
+        "url": "https://static.rust-lang.org/dist/2026-09-03/rustc-1.98.1-x86_64-unknown-linux-gnu.tar.xz",
+        "sha256": "e974f036b28565f37c0f3bd92ddefa809bee16c04f9dcf07b9ed96e05aaaf7c4",
+        "dest": "rustc",
+        "only-arches": [
+            "x86_64"
+        ],
+        "x-checker-data": {
+            "type": "rust",
+            "package": "rustc",
+            "channel": "stable",
+            "target": "x86_64-unknown-linux-gnu"
+        }
+    },
+    {
+        "type": "shell",
+        "commands": [
+            " ./install.sh --prefix=/app/lib/sdk/rust --without=rust-docs --without=rust-docs-json-preview --disable-ldconfig --verbose"
+        ],
+        "dest": "rustc"
+    },
+    {
+        "type": "archive",
+        "url": "https://static.rust-lang.org/dist/2026-09-03/cargo-1.98.1-aarch64-unknown-linux-gnu.tar.xz",
+        "sha256": "c09425a7f300af148c0bdfded0e7d5f1fe7c075b2b9674e8935afa769297b2f6",
+        "dest": "cargo",
+        "only-arches": [
+            "aarch64"
+        ],
+        "x-checker-data": {
+            "type": "rust",
+            "package": "cargo",
+            "channel": "stable",
+            "target": "aarch64-unknown-linux-gnu"
+        }
+    },
+    {
+        "type": "archive",
+        "url": "https://static.rust-lang.org/dist/2026-09-03/cargo-1.98.1-x86_64-unknown-linux-gnu.tar.xz",
+        "sha256": "ea1de9f9e23107d97ee2b41a72c552f34064a593da503789218387aee59f3ba4",
+        "dest": "cargo",
+        "only-arches": [
+            "x86_64"
+        ],
+        "x-checker-data": {
+            "type": "rust",
+            "package": "cargo",
+            "channel": "stable",
+            "target": "x86_64-unknown-linux-gnu"
+        }
+    },
+    {
+        "type": "shell",
+        "commands": [
+            " ./install.sh --prefix=/app/lib/sdk/rust --without=rust-docs --without=rust-docs-json-preview --disable-ldconfig --verbose"
+        ],
+        "dest": "cargo"
+    },
+    {
+        "type": "archive",
+        "url": "https://static.rust-lang.org/dist/2026-09-03/rust-std-1.98.1-aarch64-unknown-linux-gnu.tar.xz",
+        "sha256": "9bf796a6ec5b004813ebd0b650775a7c6a4f3aae97ad362ae294798dca4f3b23",
+        "dest": "rust-std",
+        "only-arches": [
+            "aarch64"
+        ],
+        "x-checker-data": {
+            "type": "rust",
+            "package": "rust-std",
+            "channel": "stable",
+            "target": "aarch64-unknown-linux-gnu"
+        }
+    },
+    {
+        "type": "archive",
+        "url": "https://static.rust-lang.org/dist/2026-09-03/rust-std-1.98.1-x86_64-unknown-linux-gnu.tar.xz",
+        "sha256": "fa3ff450172a16c026944030230c5069947af93c728d9179971d44e5e0cfb561",
+        "dest": "rust-std",
+        "only-arches": [
+            "x86_64"
+        ],
+        "x-checker-data": {
+            "type": "rust",
+            "package": "rust-std",
+            "channel": "stable",
+            "target": "x86_64-unknown-linux-gnu"
+        }
+    },
+    {
+        "type": "shell",
+        "commands": [
+            " ./install.sh --prefix=/app/lib/sdk/rust --without=rust-docs --without=rust-docs-json-preview --disable-ldconfig --verbose"
+        ],
+        "dest": "rust-std"
+    },
+    {
+        "type": "archive",
+        "url": "https://static.rust-lang.org/dist/2026-09-03/rust-std-1.98.1-wasm32-unknown-unknown.tar.xz",
+        "sha256": "cf1fcf68880d8b2b90128cede7416cfb82ad3584357ce9fb668f2b6244c26e55",
+        "dest": "rust-std-wasm32",
+        "x-checker-data": {
+            "type": "rust",
+            "package": "rust-std",
+            "channel": "stable",
+            "target": "wasm32-unknown-unknown"
+        }
+    },
+    {
+        "type": "shell",
+        "commands": [
+            "./install.sh --prefix=/app/lib/sdk/rust --without=rust-docs --without=rust-docs-json-preview --disable-ldconfig --verbose"
+        ],
+        "dest": "rust-std-wasm32"
+    }
+]

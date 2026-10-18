@@ -75,6 +75,28 @@ jq '
     end)
 ' merged-fixed-cargo-sources.json > merged-fixed-deep_filter-cargo-sources.json
 
+WASM_BINDGEN_VERSION=$(sed -n 's/^const LIBFLUXCORE_WASM_BINDGEN_VERSION: &str = "\(.*\)";$/\1/p' tools/ci/src/app_wasm.rs)
+
+WASM_BINDGEN_VERSION=$(sed -n 's/^const LIBFLUXCORE_WASM_BINDGEN_VERSION: &str = "\(.*\)";$/\1/p' tools/ci/src/app_wasm.rs)
+
+for arch in x86_64 aarch64; do
+    url="https://github.com/wasm-bindgen/wasm-bindgen/releases/download/${WASM_BINDGEN_VERSION}/wasm-bindgen-${WASM_BINDGEN_VERSION}-${arch}-unknown-linux-musl.tar.gz"
+    sha256=$(curl -fsSL "$url" | sha256sum | cut -d ' ' -f 1)
+
+    jq --arg arch "$arch" \
+       --arg url "$url" \
+       --arg sha256 "$sha256" \
+       'map(
+          if .dest == "wasm-bindgen" and
+             ((.["only-arches"] // []) | index($arch)) then
+            .url = $url | .sha256 = $sha256
+          else
+            .
+          end
+       )' "$CUR_DIR/wasm-bindgen.json" > "wasm-bindgen.json" &&
+       cp "wasm-bindgen.json" "$CUR_DIR/wasm-bindgen.json" || exit 1
+done
+
 cp "pnpm-sources.json" "$CUR_DIR/pnpm-sources.json"
 
 cp "merged-fixed-deep_filter-cargo-sources.json" "$CUR_DIR/cargo-sources.json"
