@@ -45,6 +45,7 @@ modules:
       strip: true
       prepend-path: /app/lib/sdk/rust/bin:/run/build/fluxer/pnpm/bin
       env:
+        FLUXER_ELECTRON_DIST: /run/build/fluxer/fluxer-electron
         RUST_BACKTRACE: '1'
         BUILD_CHANNEL: stable
         LK_CUSTOM_WEBRTC: /run/build/fluxer/webrtc-linux
@@ -110,3 +111,4 @@ modules:
       - pnpm-sources.json
       - cargo-sources.json
       - cargo-linux-webrtc.json
+      - fluxer-electron.json
