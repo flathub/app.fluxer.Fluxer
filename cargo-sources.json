@@ -44,9 +44,9 @@
   {
     "type": "archive",
     "archive-type": "tar-gzip",
-    "url": "https://static.crates.io/crates/ammonia/ammonia-4.2.3.crate",
-    "sha256": "061e83b03c2681c18a6787d956e355c74e0b98ba7ba3d69b0822ade1e6f1d716",
-    "dest": "cargo/vendor/ammonia-4.2.3"
+    "url": "https://static.crates.io/crates/ammonia/ammonia-4.2.4.crate",
+    "sha256": "1f45dfa685e1ec33b1bf1a3b93b8047cbdbef41b6040deebbe6bea7720a45574",
+    "dest": "cargo/vendor/ammonia-4.2.4"
   },
   {
     "type": "archive",
@@ -3215,6 +3215,13 @@
   {
     "type": "archive",
     "archive-type": "tar-gzip",
+    "url": "https://static.crates.io/crates/rustls/rustls-0.23.46.crate",
+    "sha256": "48e13bd8c0e9365c43cfa5c9e8f9ad49d3c8444926c9aac819e0e4dc503c8fdf",
+    "dest": "cargo/vendor/rustls-0.23.46"
+  },
+  {
+    "type": "archive",
+    "archive-type": "tar-gzip",
     "url": "https://static.crates.io/crates/rustls-native-certs/rustls-native-certs-0.8.4.crate",
     "sha256": "dab5152771c58876a2146916e53e35057e1a4dfa2b9df0f0305b07f611fdea4d",
     "dest": "cargo/vendor/rustls-native-certs-0.8.4"
@@ -4874,6 +4881,13 @@
   {
     "type": "archive",
     "archive-type": "tar-gzip",
+    "url": "https://static.crates.io/crates/zip/zip-9.0.4.crate",
+    "sha256": "a954114b47a54df49f83d2722814e86b23d4bb1b54a1b90fb7d92b41619ddc22",
+    "dest": "cargo/vendor/zip-9.0.4"
+  },
+  {
+    "type": "archive",
+    "archive-type": "tar-gzip",
     "url": "https://static.crates.io/crates/zlib-rs/zlib-rs-0.6.8.crate",
     "sha256": "b268e58e7c693d7c271f93ffc4ba3b380412554231c85bf61ca7af91042a4112",
     "dest": "cargo/vendor/zlib-rs-0.6.8"
@@ -4998,12 +5012,6 @@
     "type": "inline",
     "contents": "{\"package\": \"05f360fc0b24296329c78fda852a1e9ae82de9cf7b27dae4b7f62f118f77b9ed\", \"files\": {}}",
     "dest": "cargo/vendor/wyz-0.5.1",
-    "dest-filename": ".cargo-checksum.json"
-  },
-  {
-    "type": "inline",
-    "contents": "{\"package\": \"061e83b03c2681c18a6787d956e355c74e0b98ba7ba3d69b0822ade1e6f1d716\", \"files\": {}}",
-    "dest": "cargo/vendor/ammonia-4.2.3",
     "dest-filename": ".cargo-checksum.json"
   },
   {
@@ -5436,6 +5444,12 @@
     "type": "inline",
     "contents": "{\"package\": \"1ebf944e87a7c253233ad6766e082e3cd714b5d03812acc24c318f549614536e\", \"files\": {}}",
     "dest": "cargo/vendor/wit-bindgen-0.57.1",
+    "dest-filename": ".cargo-checksum.json"
+  },
+  {
+    "type": "inline",
+    "contents": "{\"package\": \"1f45dfa685e1ec33b1bf1a3b93b8047cbdbef41b6040deebbe6bea7720a45574\", \"files\": {}}",
+    "dest": "cargo/vendor/ammonia-4.2.4",
     "dest-filename": ".cargo-checksum.json"
   },
   {
@@ -6150,6 +6164,12 @@
     "type": "inline",
     "contents": "{\"package\": \"488016bfae457b036d996092f6cb448677611ce4449e970ceaf42695203f218a\", \"files\": {}}",
     "dest": "cargo/vendor/memoffset-0.9.1",
+    "dest-filename": ".cargo-checksum.json"
+  },
+  {
+    "type": "inline",
+    "contents": "{\"package\": \"48e13bd8c0e9365c43cfa5c9e8f9ad49d3c8444926c9aac819e0e4dc503c8fdf\", \"files\": {}}",
+    "dest": "cargo/vendor/rustls-0.23.46",
     "dest-filename": ".cargo-checksum.json"
   },
   {
@@ -7686,6 +7706,12 @@
     "type": "inline",
     "contents": "{\"package\": \"a93142f0367a4cc53ae0fead1bcda39e85beccfad3dcd717656cacab94b12985\", \"files\": {}}",
     "dest": "cargo/vendor/serde_nanos-0.1.4",
+    "dest-filename": ".cargo-checksum.json"
+  },
+  {
+    "type": "inline",
+    "contents": "{\"package\": \"a954114b47a54df49f83d2722814e86b23d4bb1b54a1b90fb7d92b41619ddc22\", \"files\": {}}",
+    "dest": "cargo/vendor/zip-9.0.4",
     "dest-filename": ".cargo-checksum.json"
   },
   {
