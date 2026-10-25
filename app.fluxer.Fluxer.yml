@@ -73,7 +73,6 @@ modules:
         unset LD_PRELOAD
         pnpm exec electron-builder --dir --config electron-builder.config.cjs $ELECTRON_BUILDER_ARCH_ARGS
       - mv fluxer_desktop/dist-electron/linux*-unpacked $FLATPAK_DEST/fluxer
-      - mv $FLATPAK_DEST/fluxer/fluxer_desktop $FLATPAK_DEST/fluxer/fluxer
       # Inject the correct Flatpak App ID directly into the Electron archive:
       - patch-electron-desktop-filename ${FLATPAK_DEST}/fluxer/resources/app.asar
       - install -Dm755 ${FLATPAK_ID}.sh ${FLATPAK_DEST}/bin/${FLATPAK_ID}
