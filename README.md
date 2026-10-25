@@ -29,6 +29,4 @@ Default Flatpak permissions for this package limit Fluxer's ability to access yo
 
 ### Reporting bugs
 
-Before reporting a bug, please try to replicate the issue on a non-sandboxed official package first. If the problem only occurs on the Flatpak, feel free to open an issue on this repository. Otherwise, open an issue in [fluxerapp/fluxer](https://github.com/fluxerapp/fluxer).
-
-If you need help troubleshooting or have suggestions related to the Flatpak version, you can join the [Fluxer Developers](https://fluxer.gg/fluxer-developers) community and discuss them in the [`#flatpak`](https://web.fluxer.app/channels/1427764813854588940/1474436641954701476) channel.
+Before reporting a bug, please try to replicate the issue on a non-sandboxed official package first. If the problem only occurs on the Flatpak, feel free to open an issue on this repository. Otherwise, report it at [`feedback.fluxer.com`](https://feedback.fluxer.com).

@@ -1,9 +1,9 @@
 id: app.fluxer.Fluxer
 runtime: org.freedesktop.Platform
-runtime-version: "26.08"
+runtime-version: '26.08'
 sdk: org.freedesktop.Sdk
 base: org.electronjs.Electron2.BaseApp
-base-version: "26.08"
+base-version: '26.08'
 sdk-extensions:
   - org.freedesktop.Sdk.Extension.node24
   - org.freedesktop.Sdk.Extension.llvm22
@@ -45,18 +45,19 @@ modules:
       strip: true
       prepend-path: /app/lib/sdk/rust/bin:/run/build/fluxer/pnpm/bin
       env:
+        FLUXER_ELECTRON_DIST: /run/build/fluxer/fluxer-electron
         RUST_BACKTRACE: '1'
         BUILD_CHANNEL: stable
         LK_CUSTOM_WEBRTC: /run/build/fluxer/webrtc-linux
         CARGO_HOME: /run/build/fluxer/cargo
-        CARGO_NET_OFFLINE: "true"
+        CARGO_NET_OFFLINE: 'true'
         NPM_CONFIG_LOGLEVEL: info
-        PNPM_CONFIG_TRUST_LOCKFILE: "true"
+        PNPM_CONFIG_TRUST_LOCKFILE: 'true'
         XDG_CACHE_HOME: /run/build/fluxer/flatpak-node/cache
-        ELECTRON_SKIP_BINARY_DOWNLOAD: "true"
+        ELECTRON_SKIP_BINARY_DOWNLOAD: 'true'
         npm_config_nodedir: /usr/lib/sdk/node24
         npm_config_store_dir: /run/build/fluxer/flatpak-node/pnpm-store
-        npm_config_offline: "true"
+        npm_config_offline: 'true'
     build-commands:
       - pnpm install --ignore-scripts --frozen-lockfile --offline --force
       - |
@@ -72,7 +73,6 @@ modules:
         unset LD_PRELOAD
         pnpm exec electron-builder --dir --config electron-builder.config.cjs $ELECTRON_BUILDER_ARCH_ARGS
       - mv fluxer_desktop/dist-electron/linux*-unpacked $FLATPAK_DEST/fluxer
-      - mv $FLATPAK_DEST/fluxer/fluxer_desktop $FLATPAK_DEST/fluxer/fluxer
       # Inject the correct Flatpak App ID directly into the Electron archive:
       - patch-electron-desktop-filename ${FLATPAK_DEST}/fluxer/resources/app.asar
       - install -Dm755 ${FLATPAK_ID}.sh ${FLATPAK_DEST}/bin/${FLATPAK_ID}
@@ -83,8 +83,8 @@ modules:
       - type: git
         url: https://github.com/fluxerapp/fluxer.git
         disable-submodules: true
-        tag: fluxer-desktop-stable@2026.1013.135431
-        commit: d514501d57a60093c962a288bd4253b4039301e4
+        tag: fluxer-desktop-stable@2026.1024.213613
+        commit: d1a8c2ee803216af6723d3375466f37fc680a84a
         x-checker-data:
           type: git
           is-main-source: true
@@ -110,3 +110,4 @@ modules:
       - pnpm-sources.json
       - cargo-sources.json
       - cargo-linux-webrtc.json
+      - fluxer-electron.json
