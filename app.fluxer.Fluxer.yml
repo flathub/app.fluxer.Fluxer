@@ -83,8 +83,8 @@ modules:
       - type: git
         url: https://github.com/fluxerapp/fluxer.git
         disable-submodules: true
-        tag: fluxer-desktop-stable@2026.1024.213613
-        commit: d1a8c2ee803216af6723d3375466f37fc680a84a
+        tag: fluxer-desktop-stable@2026.1029.224039
+        commit: b80ae44b7d629cc2770a0cf27d622e6e0563760d
         x-checker-data:
           type: git
           is-main-source: true
