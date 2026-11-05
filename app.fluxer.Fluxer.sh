@@ -9,5 +9,6 @@ fi
 
 export TMPDIR="${XDG_RUNTIME_DIR}/app/${FLATPAK_ID}"
 export FLUXER_DISABLE_DESKTOP_FILE=1
+export FLUXER_FLATPAK_COMMAND="${FLATPAK_ID}"
 
 exec zypak-wrapper /app/fluxer/fluxer "${FLAGS[@]}" "$@"

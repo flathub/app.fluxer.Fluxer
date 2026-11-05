@@ -149,9 +149,9 @@
   {
     "type": "archive",
     "archive-type": "tar-gzip",
-    "url": "https://static.crates.io/crates/async-executor/async-executor-1.14.0.crate",
-    "sha256": "c96bf972d85afc50bf5ab8fe2d54d1586b4e0b46c97c50a0c9e71e2f7bcd812a",
-    "dest": "cargo/vendor/async-executor-1.14.0"
+    "url": "https://static.crates.io/crates/async-executor/async-executor-1.14.1.crate",
+    "sha256": "f426a31126c735126297bc5ea7a521263c9faff4f63ca415267ee625651c4f37",
+    "dest": "cargo/vendor/async-executor-1.14.1"
   },
   {
     "type": "archive",
@@ -7957,12 +7957,6 @@
   },
   {
     "type": "inline",
-    "contents": "{\"package\": \"c96bf972d85afc50bf5ab8fe2d54d1586b4e0b46c97c50a0c9e71e2f7bcd812a\", \"files\": {}}",
-    "dest": "cargo/vendor/async-executor-1.14.0",
-    "dest-filename": ".cargo-checksum.json"
-  },
-  {
-    "type": "inline",
     "contents": "{\"package\": \"c982642fa9e8606056828ee9a8505737230110bb1099153c79efe865c59d12ba\", \"files\": {}}",
     "dest": "cargo/vendor/aho-corasick-1.1.5",
     "dest-filename": ".cargo-checksum.json"
@@ -8745,6 +8739,12 @@
     "type": "inline",
     "contents": "{\"package\": \"f4200d433cbd5178df7797c9c2e75b348b728e39631cf14520d1e2fc424201f4\", \"files\": {}}",
     "dest": "cargo/vendor/infer-0.22.0",
+    "dest-filename": ".cargo-checksum.json"
+  },
+  {
+    "type": "inline",
+    "contents": "{\"package\": \"f426a31126c735126297bc5ea7a521263c9faff4f63ca415267ee625651c4f37\", \"files\": {}}",
+    "dest": "cargo/vendor/async-executor-1.14.1",
     "dest-filename": ".cargo-checksum.json"
   },
   {
