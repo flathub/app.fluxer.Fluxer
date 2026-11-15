@@ -31,48 +31,41 @@ build-options:
   env:
     LIBCLANG_PATH: /usr/lib/sdk/llvm22/lib
 modules:
-  - native-dependencies.yml
-  - membarrier-shim.yml
+  - membarrier-ship.yml
   - name: fluxer
     buildsystem: simple
     cleanup:
       - /include
       - /lib/cmake
       - /lib/sdk
-      - /lib/libcbor.a
       - /lib/pkgconfig
     build-options:
       strip: true
       prepend-path: /app/lib/sdk/rust/bin:/run/build/fluxer/pnpm/bin
       env:
-        FLUXER_ELECTRON_DIST: /run/build/fluxer/fluxer-electron
         RUST_BACKTRACE: '1'
         BUILD_CHANNEL: stable
         FLUXER_MODULES: '1'
-        LK_CUSTOM_WEBRTC: /run/build/fluxer/webrtc-linux
+        FLUXER_OFFLINE: '1'
+        FLUXER_ALLOW_STOCK_ELECTRON: '1'
         CARGO_HOME: /run/build/fluxer/cargo
         CARGO_NET_OFFLINE: 'true'
+        NODE_ENV: 'production'
         NPM_CONFIG_LOGLEVEL: info
         PNPM_CONFIG_TRUST_LOCKFILE: 'true'
+        PNPM_CONFIG_PM_ON_FAIL: 'ignore'
         XDG_CACHE_HOME: /run/build/fluxer/flatpak-node/cache
-        ELECTRON_SKIP_BINARY_DOWNLOAD: 'true'
+        ELECTRON_SKIP_BINARY_DOWNLOAD: '1'
         npm_config_nodedir: /usr/lib/sdk/node24
-        npm_config_store_dir: /run/build/fluxer/flatpak-node/pnpm-store
-        npm_config_offline: 'true'
     build-commands:
-      - pnpm install --ignore-scripts --frozen-lockfile --offline --force
+      - pnpm install --offline --frozen-lockfile --filter 'fluxer_desktop...' --filter 'fluxer_app...'
       - |
         set -eux
-        . ./flatpak-node/electron-builder-arch-args.sh
         export VERSION="$(git describe --tags --exact-match --match 'fluxer-desktop-stable@*' | cut -d@ -f2)"
         export BUILD_VERSION="$VERSION" PUBLIC_BUILD_VERSION="$VERSION"
         export RELEASE_CHANNEL="$BUILD_CHANNEL" PUBLIC_RELEASE_CHANNEL="$BUILD_CHANNEL"
         unset CFLAGS CXXFLAGS
-        cd fluxer_desktop
-        if [ "$FLATPAK_ARCH" = aarch64 ]; then export LD_PRELOAD=/app/lib/membarrier-shim.so; fi
-        pnpm build
-        unset LD_PRELOAD
-        pnpm exec electron-builder --dir --config electron-builder.config.cjs $ELECTRON_BUILDER_ARCH_ARGS
+        pnpm --filter fluxer_desktop package:dir -c.electronVersion=44.10.0
       - mv fluxer_desktop/dist-electron/linux*-unpacked $FLATPAK_DEST/fluxer
       # Inject the correct Flatpak App ID directly into the Electron archive:
       - patch-electron-desktop-filename ${FLATPAK_DEST}/fluxer/resources/app.asar
@@ -84,12 +77,8 @@ modules:
       - type: git
         url: https://github.com/fluxerapp/fluxer.git
         disable-submodules: true
-        tag: fluxer-desktop-stable@2026.1106.11400
-        commit: 4d2df4f250d15fb04cf04f902678b03d392c0c46
-        x-checker-data:
-          type: git
-          is-main-source: true
-          tag-pattern: fluxer-desktop-stable@([\d.]+)$
+        tag: fluxer-desktop-stable@2026.1114.183423
+        commit: 85d910f828ccded9a8b4ad2480e945c4d6c8648b
       - type: file
         path: app.fluxer.Fluxer.sh
         # Patch the metadata file to inject the latest verison. Workaround until release tagging is set up upstream.
@@ -105,10 +94,8 @@ modules:
             metainf="fluxer_desktop/packaging/linux/${FLATPAK_ID}.metainfo.xml"
             sed -i -e '/<releases>/,/<\/releases>/d' -e '/<releases\/>/d' "$metainf"
             sed -i "s|</component>|    <releases>\n        <release version=\"$VERSION\" date=\"$DATE\"/>\n    </releases>\n</component>|" "$metainf"
-      - pnpm.json
-      - rust.json
-      - wasm-bindgen.json
-      - pnpm-sources.json
-      - cargo-sources.json
-      - cargo-linux-webrtc.json
-      - fluxer-electron.json
+      - source_files/pnpm.json
+      - source_files/rust.json
+      - source_files/wasm-bindgen.json
+      - source_files/pnpm-sources.json
+      - source_files/cargo-sources.json
