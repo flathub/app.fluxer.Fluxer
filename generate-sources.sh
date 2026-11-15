@@ -1,83 +1,28 @@
 #!/usr/bin/env bash
-
 set -euo pipefail
 
 CUR_DIR="$PWD"
-
-COMMIT=$(awk '
-  /url: https:\/\/github\.com\/fluxerapp\/fluxer\.git$/ { found=1; next }
-  found && /^[[:space:]]*commit:/ { print $2; exit }
-  found && /^[[:space:]]*- / { exit }
-' "$CUR_DIR/app.fluxer.Fluxer.yml")
-
-echo ""
+UPSTREAM_VER=$(curl -fsS https://pkgs.fluxer.com/desktop/stable/linux/x64/modules.json | jq -r .shell.latest_version)
+TAG="refs/tags/fluxer-desktop-stable@${UPSTREAM_VER}"
+NEW_COMMIT=$(git ls-remote https://github.com/fluxerapp/fluxer "$TAG" "$TAG^{}" | tail -n1 | cut -f1)
 SOURCE_URL="https://github.com/fluxerapp/fluxer"
-
 WORKDIR="$(mktemp -d -t fluxer-flatpak-XXXXXX)"
-
 cd "$WORKDIR"
-
 python -m venv venv
-
 source ./venv/bin/activate
-
 git clone $SOURCE_URL fluxer
-
-git -C fluxer checkout "$COMMIT"
-
+git -C fluxer checkout "$NEW_COMMIT"
 cd "./fluxer"
 
 pip install pipx
-
+pip install flatpak-cargo-generator
 pipx install git+https://github.com/flatpak/flatpak-builder-tools.git#subdirectory=node  --force
 
 flatpak-node-generator pnpm "./pnpm-lock.yaml" -o "pnpm-sources.json" --pnpm-store-version v11
+flatpak-cargo-generator Cargo.lock -o cargo-sources.json
+cp cargo-sources.json "$CUR_DIR/source_files/cargo-sources.json"
 
-pip install flatpak-cargo-generator
-
-find "." -name Cargo.lock | while read -r lockfile; do
-    flatpak-cargo-generator "$lockfile" -o "$(dirname "$lockfile")/cargo-sources.json"
-done
-
-
-jq -s '
-    map(.[])
-    | unique | sort_by(.type == "shell")
-' $(find . -name cargo-sources.json -type f) > "merged-cargo-sources.json"
-
-jq '
-    (
-    map(select(.type == "inline" and .dest == "cargo" and ."dest-filename" == "config") | .contents) as $items
-    | $items | map(
-        select(. as $x | ($items | map(select(. != $x and contains($x))) | length) == 0)
-    ) | join("\n")
-    ) as $merged_contents | map(
-        select(.type != "inline" or .dest != "cargo" or ."dest-filename" != "config")
-    ) | . + [{
-        "type": "inline",
-        "contents": $merged_contents,
-        "dest": "cargo",
-        "dest-filename": "config"
-    }]
-' merged-cargo-sources.json > merged-fixed-cargo-sources.json
-
-jq '
-  map(if .type == "shell"
-      and (.commands | length == 1)
-      and (.commands[0] | test("cp -r --reflink=auto \"flatpak-cargo/git/deepfilternet-[^/]+/libDF\""))
-    then
-      .commands = [
-        "cp -r --reflink=auto flatpak-cargo/git/deepfilternet-*/libDF/* cargo/vendor/deep_filter",
-        "cp -r flatpak-cargo/git/deepfilternet-*/models cargo/vendor"
-      ]
-    else
-      .
-    end)
-' merged-fixed-cargo-sources.json > merged-fixed-deep_filter-cargo-sources.json
-
-WASM_BINDGEN_VERSION=$(sed -n 's/^const LIBFLUXCORE_WASM_BINDGEN_VERSION: &str = "\(.*\)";$/\1/p' tools/ci/src/app_wasm.rs)
-
-WASM_BINDGEN_VERSION=$(sed -n 's/^const LIBFLUXCORE_WASM_BINDGEN_VERSION: &str = "\(.*\)";$/\1/p' tools/ci/src/app_wasm.rs)
+WASM_BINDGEN_VERSION=$(awk '$0=="name = \"wasm-bindgen\""{getline; gsub(/"/,"",$3); print $3; exit}' Cargo.lock)
 
 for arch in x86_64 aarch64; do
     url="https://github.com/wasm-bindgen/wasm-bindgen/releases/download/${WASM_BINDGEN_VERSION}/wasm-bindgen-${WASM_BINDGEN_VERSION}-${arch}-unknown-linux-musl.tar.gz"
@@ -93,11 +38,41 @@ for arch in x86_64 aarch64; do
           else
             .
           end
-       )' "$CUR_DIR/wasm-bindgen.json" > "wasm-bindgen.json" &&
-       cp "wasm-bindgen.json" "$CUR_DIR/wasm-bindgen.json" || exit 1
+       )' "$CUR_DIR/source_files/wasm-bindgen.json" > "wasm-bindgen.json" &&
+       cp "wasm-bindgen.json" "$CUR_DIR/source_files/wasm-bindgen.json" || exit 1
 done
 
-cp "pnpm-sources.json" "$CUR_DIR/pnpm-sources.json"
+cp "pnpm-sources.json" "$CUR_DIR/source_files/pnpm-sources.json"
 
-cp "merged-fixed-deep_filter-cargo-sources.json" "$CUR_DIR/cargo-sources.json"
+# Custom fluxer source update script to be compliant with PACKAGING.md (https://github.com/fluxerapp/fluxer/blob/main/fluxer_desktop/PACKAGING.md)
+echo "Checking for a new fluxer source version"
 
+LOCAL_VER=$(yq '
+  .modules[]
+  | select(tag == "!!map" and .name == "fluxer")
+  | .sources[]
+  | select(tag == "!!map" and .type == "git")
+  | .tag | split("@") | .[1]
+' $CUR_DIR/app.fluxer.Fluxer.yml)
+
+if [ "$LOCAL_VER" = "$UPSTREAM_VER" ]; then
+	echo "Source is up to date"
+	exit
+else
+	echo $'\nNew version available:'
+	echo "$LOCAL_VER -> $UPSTREAM_VER"
+
+    export NEW_COMMIT
+    export UPSTREAM_VER
+    yq -i '
+      (.modules[]
+      | select(tag == "!!map" and .name == "fluxer")
+      | .sources[]
+      | select(tag == "!!map" and .type == "git")
+      ) |= (
+      .tag = "fluxer-desktop-stable@" + strenv(UPSTREAM_VER)
+      | .commit = strenv(NEW_COMMIT)
+      )
+    ' $CUR_DIR/app.fluxer.Fluxer.yml
+    echo $'Fluxer source has been updated\n'
+fi
