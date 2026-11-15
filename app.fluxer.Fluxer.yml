@@ -31,7 +31,7 @@ build-options:
   env:
     LIBCLANG_PATH: /usr/lib/sdk/llvm22/lib
 modules:
-  - membarrier-ship.yml
+  - membarrier-shim.yml
   - name: fluxer
     buildsystem: simple
     cleanup:
