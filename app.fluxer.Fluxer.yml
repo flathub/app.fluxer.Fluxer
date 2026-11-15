@@ -65,7 +65,9 @@ modules:
         export BUILD_VERSION="$VERSION" PUBLIC_BUILD_VERSION="$VERSION"
         export RELEASE_CHANNEL="$BUILD_CHANNEL" PUBLIC_RELEASE_CHANNEL="$BUILD_CHANNEL"
         unset CFLAGS CXXFLAGS
+        if [ "$FLATPAK_ARCH" = aarch64 ]; then export LD_PRELOAD=/app/lib/membarrier-shim.so; fi
         pnpm --filter fluxer_desktop package:dir -c.electronVersion=44.10.0
+        unset LD_PRELOAD
       - mv fluxer_desktop/dist-electron/linux*-unpacked $FLATPAK_DEST/fluxer
       # Inject the correct Flatpak App ID directly into the Electron archive:
       - patch-electron-desktop-filename ${FLATPAK_DEST}/fluxer/resources/app.asar
