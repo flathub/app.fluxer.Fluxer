@@ -79,8 +79,8 @@ modules:
       - type: git
         url: https://github.com/fluxerapp/fluxer.git
         disable-submodules: true
-        tag: fluxer-desktop-stable@2026.1114.183423
-        commit: 85d910f828ccded9a8b4ad2480e945c4d6c8648b
+        tag: fluxer-desktop-stable@2026.1120.163638
+        commit: 5663cb58d0d89f170d815db56720d708ac1741ea
       - type: file
         path: app.fluxer.Fluxer.sh
         # Patch the metadata file to inject the latest verison. Workaround until release tagging is set up upstream.
