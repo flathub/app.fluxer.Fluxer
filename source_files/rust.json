@@ -1,8 +1,8 @@
 [
     {
         "type": "archive",
-        "url": "https://static.rust-lang.org/dist/2026-11-12/rustc-1.100.0-aarch64-unknown-linux-gnu.tar.xz",
-        "sha256": "fcbfa5b8a0cb28f0c4edfb6dda6910ee910993db31f05258613f5cd5b851263a",
+        "url": "https://static.rust-lang.org/dist/2026-11-27/rustc-1.100.1-aarch64-unknown-linux-gnu.tar.xz",
+        "sha256": "1c195c642704e29d908f784e4df6b3fd90bc792f8ac8a1b222b1dfa36c8f9e40",
         "dest": "rustc",
         "only-arches": [
             "aarch64"
@@ -16,8 +16,8 @@
     },
     {
         "type": "archive",
-        "url": "https://static.rust-lang.org/dist/2026-11-12/rustc-1.100.0-x86_64-unknown-linux-gnu.tar.xz",
-        "sha256": "f1d0b1dec81dab6f523cd098507763487b0d4bd7fd2c87582f154128719be03b",
+        "url": "https://static.rust-lang.org/dist/2026-11-27/rustc-1.100.1-x86_64-unknown-linux-gnu.tar.xz",
+        "sha256": "e8e8f0a79da23a7526aea34f2da59e96ea8f51e4ef5e5a3831f71f41e63a495e",
         "dest": "rustc",
         "only-arches": [
             "x86_64"
@@ -38,8 +38,8 @@
     },
     {
         "type": "archive",
-        "url": "https://static.rust-lang.org/dist/2026-11-12/cargo-1.100.0-aarch64-unknown-linux-gnu.tar.xz",
-        "sha256": "d07ee80eb6ba3c5845c554ac88086e1ff5d63f83d99c3c09cb32504cbedd6844",
+        "url": "https://static.rust-lang.org/dist/2026-11-27/cargo-1.100.1-aarch64-unknown-linux-gnu.tar.xz",
+        "sha256": "c1996df187de68a3b637a211424ad17988c78eed483199067333081f38989ee9",
         "dest": "cargo",
         "only-arches": [
             "aarch64"
@@ -53,8 +53,8 @@
     },
     {
         "type": "archive",
-        "url": "https://static.rust-lang.org/dist/2026-11-12/cargo-1.100.0-x86_64-unknown-linux-gnu.tar.xz",
-        "sha256": "7e29ce07d7c6e92d1826870575ba27d57fff6cb3e754aa57d99099cb88fab35d",
+        "url": "https://static.rust-lang.org/dist/2026-11-27/cargo-1.100.1-x86_64-unknown-linux-gnu.tar.xz",
+        "sha256": "f0a81f7ea2e3238e85fadb3b9f5bc03111ed368697a04dd350567f6ed836d638",
         "dest": "cargo",
         "only-arches": [
             "x86_64"
@@ -75,8 +75,8 @@
     },
     {
         "type": "archive",
-        "url": "https://static.rust-lang.org/dist/2026-11-12/rust-std-1.100.0-aarch64-unknown-linux-gnu.tar.xz",
-        "sha256": "c73f62fbe5d837f9807ed9e0076575dd8d3475c79af2b30e3570d328e6713f8f",
+        "url": "https://static.rust-lang.org/dist/2026-11-27/rust-std-1.100.1-aarch64-unknown-linux-gnu.tar.xz",
+        "sha256": "0d3133492cb063e54073458f05dc59d7ec05a944f6942f47854b6aef74b6ec26",
         "dest": "rust-std",
         "only-arches": [
             "aarch64"
@@ -90,8 +90,8 @@
     },
     {
         "type": "archive",
-        "url": "https://static.rust-lang.org/dist/2026-11-12/rust-std-1.100.0-x86_64-unknown-linux-gnu.tar.xz",
-        "sha256": "4591b6486594ded52ecd6135db95bf9355bbd3ca7a380888b141528bbcf9a5d4",
+        "url": "https://static.rust-lang.org/dist/2026-11-27/rust-std-1.100.1-x86_64-unknown-linux-gnu.tar.xz",
+        "sha256": "27c6ff8ce7d6a968dc98c74e0c214a92a1e7b61d7c2b027189040bc649a4bdc1",
         "dest": "rust-std",
         "only-arches": [
             "x86_64"
@@ -112,8 +112,8 @@
     },
     {
         "type": "archive",
-        "url": "https://static.rust-lang.org/dist/2026-11-12/rust-std-1.100.0-wasm32-unknown-unknown.tar.xz",
-        "sha256": "19b7954d650fc0d22767eceb76b8e03d07ce0d6a9f4234f33c32a17ee8d6d7b9",
+        "url": "https://static.rust-lang.org/dist/2026-11-27/rust-std-1.100.1-wasm32-unknown-unknown.tar.xz",
+        "sha256": "8021de8ffd8f11cd1f745fc9ea3cb3f48f6f4de453684aea7fd6e6d75c37a1f1",
         "dest": "rust-std-wasm32",
         "x-checker-data": {
             "type": "rust",
